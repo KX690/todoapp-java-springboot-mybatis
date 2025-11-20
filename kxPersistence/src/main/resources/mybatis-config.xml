@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <typeAliases>
+        <typeAlias alias = "class_alias_Name" type = "absolute_clas_Name"/>
+    </typeAliases>
+
+    <environments default = "development">
+        <environment id = "development">
+            <transactionManager type = "JDBC">
+                <property name="closeConnection" value="true"/>
+            </transactionManager>
+
+            <dataSource type = "POOLED">
+                <property name = "driver"       value = "database_driver_class_name"/>
+                <property name = "url"          value = "database_url"/>
+                <property name = "username"     value = "database_user_name"/>
+                <property name = "password"     value = "database_password"/>
+            </dataSource>
+
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource = "path of the configuration XML file"/>
+    </mappers>
+
+</configuration>
