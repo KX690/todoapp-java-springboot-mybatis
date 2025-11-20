@@ -5,11 +5,11 @@
 
 <mapper namespace="tasks">
     <resultMap id="TaskMap" type="KXTask">
-        <result property="id"               column="id"                 javaType="java.lang.Integer"/>
-        <result property="userId"           column="userId"             javaType="java.lang.Integer"/>
-        <result property="name"             column="name"               javaType="java.lang.String"/>
+        <result property="id"               column="id"                 javaType="java.lang.Long"/>
+        <result property="userId"           column="userId"             javaType="java.lang.Long"/>
+        <result property="title"             column="title"             javaType="java.lang.String"/>
         <result property="description"      column="description"        javaType="java.lang.String"/>
-        <result property="completed"        column="completed"          javaType="java.lang.String"/>
+        <result property="completed"        column="completed"          javaType="java.lang.Boolean"/>
     </resultMap>
 
     <sql id="sql_tasks">
@@ -17,10 +17,10 @@
 
         SELECT  t.ID             AS id,
                 t.USER_ID        AS userId,
-                t.NAME           AS name,
+                t.TITLE          AS title,
                 t.DESCRIPTION    AS description,
                 t.COMPLETED      AS completed
-        FROM    TASKS   t
+        FROM    KX_TASKS   t
 
         ]]>
     </sql>
@@ -29,34 +29,34 @@
         <include refid="sql_tasks"/>
     </select>
 
-    <select id="selectTaskById"  resultMap="TaskMap">
+    <select id="selectTaskById"  resultMap="TaskMap" parameterType="java.lang.Integer">
         <include refid="sql_tasks"/>
         WHERE t.ID = #{value}
     </select>
 
     <insert id="insertTask" parameterType="KXTask" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        INSERT INTO TASKS (
+        INSERT INTO KX_TASKS (
                            user_id,
-                           name,
+                           title,
                            description,
                            completed)
         VALUES (#{userId},
-                #{name},
+                #{title},
                 #{description},
                 #{completed})
     </insert>
 
     <update id="updateTask" parameterType="KXTask">
-        UPDATE TASKS
+        UPDATE KX_TASKS
         SET user_id     = #{userId},
-            name        = #{name},
+            title       = #{title},
             description = #{description},
             completed   = #{completed}
         WHERE id = #{id}
     </update>
 
     <delete id="deleteTaskById" parameterType="java.lang.Integer">
-        DELETE FROM TASKS
+        DELETE FROM KX_TASKS
         WHERE id = #{value}
     </delete>
 </mapper>

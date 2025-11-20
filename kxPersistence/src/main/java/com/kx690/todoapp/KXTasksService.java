@@ -19,7 +19,7 @@ public class KXTasksService implements KXBaseServiceImplement<KXTask> {
 
             sqlSession = KXSqlSessionFactory.getSqlSession();
 
-            tasks = sqlSession.selectList("KXTask.getAllTasks");
+            tasks = sqlSession.selectList("tasks.getAll");
 
 
         }catch (Exception e){
@@ -42,7 +42,7 @@ public class KXTasksService implements KXBaseServiceImplement<KXTask> {
 
             sqlSession = KXSqlSessionFactory.getSqlSession();
 
-            sqlSession.insert("KXTask.insertTask", entity);
+            sqlSession.insert("tasks.insertTask", entity);
             sqlSession.commit();
 
 

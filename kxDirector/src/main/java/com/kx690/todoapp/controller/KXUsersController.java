@@ -10,9 +10,10 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge =  3600)
-@RequestMapping("/api/kxUsers")
+@RequestMapping("/api/users")
 public class KXUsersController {
-    
+
+    @GetMapping("/getAll")
     public ResponseEntity<List<KXUser>> getAllUsers() {
 
         KXUsersService kxUsersService = null;
@@ -36,12 +37,13 @@ public class KXUsersController {
         return ResponseEntity.ok().body(users);
     }
 
-
-    public ResponseEntity<KXUser> insertUser(@RequestBody KXUser kxUser){
+    @PostMapping("/save")
+    public ResponseEntity<KXUser> saveUser(@RequestBody KXUser kxUser){
 
 
         KXUsersService kxUsersService = null;
         KXUser insertedUser = null;
+        System.out.println("KXUser to insert: " + kxUser);
         try {
 
             kxUsersService = new KXUsersService();

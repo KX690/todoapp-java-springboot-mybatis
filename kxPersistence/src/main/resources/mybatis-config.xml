@@ -6,7 +6,8 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias alias = "class_alias_Name" type = "absolute_clas_Name"/>
+        <typeAlias alias = "KXUser" type = "com.kx690.todoapp.model.KXUser"/>
+        <typeAlias alias = "KXTask" type = "com.kx690.todoapp.model.KXTask"/>
     </typeAliases>
 
     <environments default = "development">
@@ -17,17 +18,19 @@
             </transactionManager>
 
             <dataSource type = "POOLED">
-                <property name = "driver"       value = "database_driver_class_name"/>
-                <property name = "url"          value = "database_url"/>
-                <property name = "username"     value = "database_user_name"/>
-                <property name = "password"     value = "database_password"/>
+                <property name = "poolMaximumActiveConnections" value = "${poolMaximumActiveConnections}"/>
+                <property name = "driver"                       value = "${driver}"/>
+                <property name = "url"                          value = "${url}"/>
+                <property name = "username"                     value = "${username}"/>
+                <property name = "password"                     value = "${password}"/>
             </dataSource>
 
         </environment>
     </environments>
 
     <mappers>
-        <mapper resource = "path of the configuration XML file"/>
+        <mapper resource="task.xml"/>
+        <mapper resource="user.xml"/>
     </mappers>
 
 </configuration>

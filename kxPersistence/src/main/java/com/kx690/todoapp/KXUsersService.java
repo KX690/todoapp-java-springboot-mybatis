@@ -39,7 +39,7 @@ public class KXUsersService implements KXBaseServiceImplement<KXUser> {
         try{
 
             session = KXSqlSessionFactory.getSqlSession();
-            session.insert("users.insert", entity);
+            session.insert("users.insertUser", entity);
 
 
             session.commit();

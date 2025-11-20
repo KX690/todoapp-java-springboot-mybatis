@@ -4,11 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="users">
-    <resultMap id="UserMap" type="User">
-        <result property="id"          column="id"            javaType="java.lang.Integer"/>
+    <resultMap id="UserMap" type="KXUser">
+        <result property="id"          column="id"            javaType="java.lang.Long"/>
         <result property="username"    column="username"      javaType="java.lang.String"/>
         <result property="password"    column="password"      javaType="java.lang.String"/>
         <result property="email"       column="email"         javaType="java.lang.String"/>
+        
+        <collection property="tasks"    ofType="KXTask"   select="tasks.selectTaskById"  column="id"/>
     </resultMap>
 
     <sql id="sql_users">
@@ -18,23 +20,23 @@
                 u.USERNAME   AS username,
                 u.PASSWORD   AS password,
                 u.EMAIL      AS email
-        FROM    USERS   u
+        FROM    KX_USERS   u
 
         ]]>
     </sql>
 
-    <select id = "getAll" resultMap = "KXUser">
+    <select id = "getAll" resultMap = "UserMap">
         <include refid="sql_users"/>
     </select>
 
-    <select id="selectUserById"  resultMap="KXUser">
+    <select id="selectUserById"  resultMap="UserMap">
         <include refid="sql_users"/>
         WHERE u.ID = #{value}
     </select>
 
-    <insert id="insertUser" parameterType="User" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+    <insert id="insertUser" parameterType="KXUser" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
 
-    INSERT INTO USERS (
+    INSERT INTO KX_USERS (
                        username,
                        password,
                        email)
@@ -43,9 +45,9 @@
             #{email})
     </insert>
 
-    <update id="updateUser" parameterType="User">
+    <update id="updateUser" parameterType="KXUser">
 
-    UPDATE USERS
+    UPDATE KX_USERS
     SET username = #{username},
         password = #{password},
         email    = #{email}
@@ -53,7 +55,7 @@
     </update>
 
     <delete id="deleteUserById" parameterType="java.lang.Integer">
-        DELETE FROM USERS
+        DELETE FROM KX_USERS
         WHERE id = #{value}
     </delete>
 
