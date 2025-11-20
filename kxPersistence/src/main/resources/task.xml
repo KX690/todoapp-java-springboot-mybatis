@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tasks">
+    <resultMap id="TaskMap" type="KXTask">
+        <result property="id"               column="id"                 javaType="java.lang.Integer"/>
+        <result property="userId"           column="userId"             javaType="java.lang.Integer"/>
+        <result property="name"             column="name"               javaType="java.lang.String"/>
+        <result property="description"      column="description"        javaType="java.lang.String"/>
+        <result property="completed"        column="completed"          javaType="java.lang.String"/>
+    </resultMap>
+
+    <sql id="sql_tasks">
+    <![CDATA[
+
+        SELECT  t.ID             AS id,
+                t.USER_ID        AS userId,
+                t.NAME           AS name,
+                t.DESCRIPTION    AS description,
+                t.COMPLETED      AS completed
+        FROM    TASKS   t
+
+        ]]>
+    </sql>
+
+    <select id="getAll" resultMap="TaskMap">
+        <include refid="sql_tasks"/>
+    </select>
+
+    <select id="selectTaskById"  resultMap="TaskMap">
+        <include refid="sql_tasks"/>
+        WHERE t.ID = #{value}
+    </select>
+
+    <insert id="insertTask" parameterType="KXTask" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO TASKS (
+                           user_id,
+                           name,
+                           description,
+                           completed)
+        VALUES (#{userId},
+                #{name},
+                #{description},
+                #{completed})
+    </insert>
+
+    <update id="updateTask" parameterType="KXTask">
+        UPDATE TASKS
+        SET user_id     = #{userId},
+            name        = #{name},
+            description = #{description},
+            completed   = #{completed}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteTaskById" parameterType="java.lang.Integer">
+        DELETE FROM TASKS
+        WHERE id = #{value}
+    </delete>
+</mapper>

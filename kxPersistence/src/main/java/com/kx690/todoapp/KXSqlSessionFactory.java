@@ -10,12 +10,12 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import java.io.*;
 import java.util.Properties;
 
-public class KxSqlSessionFactory {
+public class KXSqlSessionFactory {
 
     private static final String ENVIRONMENT = "development";
 
 
-    private static SqlSession getSqlSession() throws IOException {
+    public static SqlSession getSqlSession() throws IOException {
 
 
         try{

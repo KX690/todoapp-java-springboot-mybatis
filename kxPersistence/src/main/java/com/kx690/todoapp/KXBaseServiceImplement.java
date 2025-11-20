@@ -2,7 +2,7 @@ package com.kx690.todoapp;
 
 import java.util.List;
 
-public interface KxBaseServiceImplement<T> {
+public interface KXBaseServiceImplement<T> {
 
     List<T> getAll();
     T getById(Long id);

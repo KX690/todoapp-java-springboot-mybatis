@@ -2,9 +2,10 @@ package com.kx690.todoapp.model;
 
 import java.util.Objects;
 
-public class KxTask {
+public class KXTask {
 
     private String id;
+    private String userId;
     private String title;
     private String description;
     private boolean completed;
@@ -15,6 +16,14 @@ public class KxTask {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -44,19 +53,20 @@ public class KxTask {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        KxTask kxTask = (KxTask) o;
-        return completed == kxTask.completed && Objects.equals(id, kxTask.id) && Objects.equals(title, kxTask.title) && Objects.equals(description, kxTask.description);
+        KXTask kxTask = (KXTask) o;
+        return completed == kxTask.completed && Objects.equals(id, kxTask.id) && Objects.equals(userId, kxTask.userId) && Objects.equals(title, kxTask.title) && Objects.equals(description, kxTask.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, completed);
+        return Objects.hash(id, userId, title, description, completed);
     }
 
     @Override
     public String toString() {
-        return "KxTask{" +
+        return "KXTask{" +
                 "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", completed=" + completed +

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="users">
+    <resultMap id="UserMap" type="User">
+        <result property="id"          column="id"            javaType="java.lang.Integer"/>
+        <result property="username"    column="username"      javaType="java.lang.String"/>
+        <result property="password"    column="password"      javaType="java.lang.String"/>
+        <result property="email"       column="email"         javaType="java.lang.String"/>
+    </resultMap>
+
+    <sql id="sql_users">
+    <![CDATA[
+
+        SELECT  u.ID         AS id,
+                u.USERNAME   AS username,
+                u.PASSWORD   AS password,
+                u.EMAIL      AS email
+        FROM    USERS   u
+
+        ]]>
+    </sql>
+
+    <select id = "getAll" resultMap = "KXUser">
+        <include refid="sql_users"/>
+    </select>
+
+    <select id="selectUserById"  resultMap="KXUser">
+        <include refid="sql_users"/>
+        WHERE u.ID = #{value}
+    </select>
+
+    <insert id="insertUser" parameterType="User" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+
+    INSERT INTO USERS (
+                       username,
+                       password,
+                       email)
+    VALUES (#{username},
+            #{password},
+            #{email})
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+
+    UPDATE USERS
+    SET username = #{username},
+        password = #{password},
+        email    = #{email}
+    WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUserById" parameterType="java.lang.Integer">
+        DELETE FROM USERS
+        WHERE id = #{value}
+    </delete>
+
+
+
+</mapper>
